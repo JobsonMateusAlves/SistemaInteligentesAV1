@@ -12,7 +12,7 @@ class Neuronio:
         self.entradas = []
         self.n = n
         # for i in range(qtd_entradas):
-        self.pesos.append(-2)
+        self.pesos.append(2)
         self.pesos.append(1)
         self.pesos.append(2)
 
