@@ -6,7 +6,7 @@ class Neuronio:
     saida = 0
     n = 0
 
-    def __init__(self, qtd_entradas=0, n = 0):
+    def __init__(self, qtd_entradas, n):
 
         self.entradas = []
         self.n = n
