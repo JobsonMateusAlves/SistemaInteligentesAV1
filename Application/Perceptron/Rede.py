@@ -4,6 +4,7 @@ import numpy as np
 
 class Rede:
 
+    normalizado = False
     neuronio = Neuronio
     x = [[]]
     entradas = [[]]
@@ -106,7 +107,10 @@ class Rede:
         plt.scatter(None, None, color='#0000FF', label=self.types[1])
         plt.legend()
 
-        plt.axis([0, 10, 0, 10])
+        if self.normalizado:
+            plt.axis([-1, 1, -1, 1])
+        else:
+            plt.axis([0, 10, 0, 10])
 
         plt.tight_layout()
 
@@ -115,6 +119,8 @@ class Rede:
         w2 = self.neuronio.pesos[2]
 
         x1 = np.linspace(0, 10, 100)
+        if self.normalizado:
+            x1 = np.linspace(-1, 1, 100)
         x2 = (-w1*x1 + wo)/w2
 
         plt.plot(x1, x2, '-g')
