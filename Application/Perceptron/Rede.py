@@ -12,7 +12,7 @@ class Rede:
     saida = 0
 
     taxaDeAprendizado = 1
-    epoca = 0 #4. Iniciando contador do numero de epocas.
+    epoca = 0
 
     existe_erro = True
     types = []
@@ -48,6 +48,8 @@ class Rede:
             self.epoca += 1
 
             self.existe_erro = erros > 0
+        print("wo = {} \tw1 = {} \t w2 = {}".format(self.neuronio.pesos[0], self.neuronio.pesos[1], self.neuronio.pesos[2]))
+        print("Epoca: {}".format(self.epoca))
         self.plotar()
 
     def filter(self):
@@ -65,14 +67,17 @@ class Rede:
         return self.types[0] if (value >= 0) else self.types[1]
 
 
-    def testar(self, entradas=[[]]):
+    def testar(self, entradas=[[]], respostas=[]):
         self.entradas = entradas
+        self.respostas = respostas
+        self.filter()
 
-        for i in range(len(entradas)):
-            self.neuronio.entradas = entradas[i]
+        print("x1\t\tx2\t\ty\t\td")
+        for i in range(len(self.entradas)):
+            self.neuronio.entradas = self.entradas[i]
             self.saida = self.sinal(self.neuronio.get_saida())
-            print(self.saida)
-
+            print("{} \t{} \t{} \t\t{}".format(round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), self.saida, self.respostas[i]))
+        self.plotar()
 
 
 
@@ -92,8 +97,6 @@ class Rede:
 
     def plotar(self):
         # Gráfico
-
-        print(self.x)
         plt.figure()
 
         for i in range(len(self.x)):
@@ -107,18 +110,11 @@ class Rede:
 
         plt.tight_layout()
 
-        print(len(self.neuronio.pesos))
         wo = self.neuronio.pesos[0]
         w1 = self.neuronio.pesos[1]
         w2 = self.neuronio.pesos[2]
 
-        # p1 = [(wo - w2 * 0) / w1, 0]
-        # p2 = [0, (wo - w1 * 0) / w2]
-        # p1 = [0, (wo - w1 * 0) / w2]
-        # p2 = [2, (wo - w1 * 2) / w2]
-        # print("p1: {} p2: {}".format(p1, p2))
         x1 = np.linspace(0, 10, 100)
-
         x2 = (-w1*x1 + wo)/w2
 
         plt.plot(x1, x2, '-g')

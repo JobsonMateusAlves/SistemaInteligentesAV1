@@ -13,10 +13,10 @@ class Neuronio:
         self.entradas = []
         self.taxaDeAprendizado = taxaDeAprendizado
         self.types = types
-        # for i in range(qtd_entradas):
-        intValues = np.random.randint(low=0, high=10, size=qtd_entradas) #3. Iniciando o vetor de pesos com valores aleatorios
+        intValues = np.random.uniform(0, 1, qtd_entradas)
         for v in intValues:
             self.pesos.append(float(v))
+        print(self.pesos)
 
     def get_saida(self):
 
