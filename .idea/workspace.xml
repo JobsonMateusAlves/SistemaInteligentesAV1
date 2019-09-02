@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="634971ef-850d-4f02-83d1-91da1cef18ad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/Perceptron/Neuronio.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Perceptron/Neuronio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Perceptron/Rede.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Perceptron/Rede.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/Perceptron/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Perceptron/main.py" afterDir="false" />
     </list>
