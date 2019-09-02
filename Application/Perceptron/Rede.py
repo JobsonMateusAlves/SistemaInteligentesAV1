@@ -7,6 +7,7 @@ class Rede:
     normalizado = False
     neuronio = Neuronio
     x = [[]]
+    a = [[]]
     entradas = [[]]
     respostas = []
 
@@ -63,21 +64,24 @@ class Rede:
             self.entradas.pop(i)
             self.respostas.pop(i)
             self.x.pop(i)
+            if len(self.a) > i:
+                self.a.pop(i)
 
     def sinal(self, value):
         return self.types[0] if (value >= 0) else self.types[1]
 
 
-    def testar(self, entradas=[[]], respostas=[]):
+    def testar(self, entradas=[[]], respostas=[], a=[]):
         self.entradas = entradas
         self.respostas = respostas
+        self.a = a
         self.filter()
 
-        print("x1\t\tx2\t\ty\t\td")
+        print("x1\tx2\tx1N\tx2N\ty\t\td")
         for i in range(len(self.entradas)):
             self.neuronio.entradas = self.entradas[i]
             self.saida = self.sinal(self.neuronio.get_saida())
-            print("{} \t{} \t{} \t\t{}".format(round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), self.saida, self.respostas[i]))
+            print("{} \t{} \t{} \t{} \t{} \t\t{}".format(round(a[i][0], 3), round(a[i][1], 3), round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), self.saida, self.respostas[i]))
         self.plotar()
 
 

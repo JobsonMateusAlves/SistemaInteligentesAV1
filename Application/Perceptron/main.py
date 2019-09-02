@@ -91,9 +91,11 @@ rede.normalizado = normalizar
 rede.treinar(entradas, respostas)
 
 # Teste
+a = get_entradas(False)
 x = get_entradas(False)
 entradas = get_entradas(False)
 respostas = get_respostas(False)
+
 
 if normalizar:
     x = normalizar_x(x)
@@ -102,8 +104,9 @@ if normalizar:
 for entrada in entradas:
     entrada.insert(0, -1)
 
+
 rede.x = x
-rede.testar(entradas, respostas)
+rede.testar(entradas, respostas, a)
 rede.show()
 
 
