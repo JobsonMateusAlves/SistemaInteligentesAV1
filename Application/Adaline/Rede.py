@@ -1,60 +1,89 @@
 from Application.Adaline.Neuronio import Neuronio
-import matplotlib.pyplot as plt
+import matplotlib as plt
+import numpy as np
 
 class Rede:
-
-    neuronio = Neuronio
-
-    entradas = [[]]
-    saida = 0
+    normalizado = False
 
     taxaDeAprendizado = 1
     precisao = 0
 
+    neuronio = Neuronio
+
+    x = [[]]
+    entradas = [[]]
+    respostas = []
+    saida = 0
+
     epoca = 0
     eqm = 0
-    eqm_anterior = 0
+    eqm_anterior = 1000
 
-    def __init__(self, qtd_entradas, taxaDeAprendizado, precisao):
+    types = []
 
+    def __init__(self, qtd_entradas, taxaDeAprendizado, precisao, types):
+        self.types = types
         self.taxaDeAprendizado = taxaDeAprendizado
         self.precisao = precisao
-        self.neuronio = Neuronio(qtd_entradas, self.taxaDeAprendizado)
+        self.neuronio = Neuronio(qtd_entradas, self.taxaDeAprendizado, self.types)
 
-    def treinar(self, entradas, respostas):
+    def filter(self):
+
+        toRemove = []
+        for i in range(len(self.respostas)):
+            if self.respostas[i] != self.types[0] and self.respostas[i] != self.types[1]:
+                toRemove.append(i)
+
+        for i in reversed(toRemove):
+            self.entradas.pop(i)
+            self.respostas.pop(i)
+            self.x.pop(i)
+
+    def treinar(self, entradas=[], respostas=[]):
 
         self.entradas = entradas
+        self.respostas = respostas
+        self.filter()
 
-        while True:
+        while abs(self.eqm - self.eqm_anterior) > self.precisao and self.epoca < 1000:
 
             self.eqm_anterior = self.eqm
 
-            eqm = 0
+            for i in range(len(self.entradas)):
+                self.saida = self.neuronio.get_saida(self.entradas[i])
 
-            for i in range(len(entradas)):
-
-                self.saida = self.neuronio.get_saida(entradas[i])
-
-                eqm += ((respostas[i] - self.saida) * (respostas[i] - self.saida))
-
-                self.neuronio.ajustar_pesos(respostas[i])
-
-            self.eqm = eqm/len(self.entradas)
+                if self.get_classe(self.neuronio.sinal(self.saida)) != self.respostas[i]:
+                    self.neuronio.ajustar_pesos(self.respostas[i])
 
             self.epoca += 1
+            self.eqm = self.get_Eqm()
+        print(self.epoca)
 
-            if abs(self.eqm - self.eqm_anterior) < self.precisao or self.epoca >= 10000:
-                break
-        print("epoca: {}".format(self.epoca))
+    def get_Eqm(self):
 
+        eqmAux = 0
 
+        for i in range(len(self.entradas)):
+            u = self.neuronio.get_saida(self.entradas[i])
+            eqmAux += ((self.respostas[i] - u)*(self.respostas[i] - u))
 
-    def sinal(self, value=0):
+        return eqmAux/len(self.entradas)
 
-        return 1 if (value >= 0) else -1
+    def testar(self, entradas=[[]], respostas=[]):
 
-    def teste(self, entradas=[[]]):
+        self.entradas = entradas
+        self.respostas = respostas
 
-        for i in range(len(entradas)):
-            self.saida = self.neuronio.get_saida(entradas[i])
-            print(self.sinal(self.saida))
+        self.filter()
+        print("x1\tx2\ty\t\td")
+        for i in range(len(self.entradas)):
+            self.neuronio.entradas = self.entradas[i]
+            self.saida = self.get_classe(self.neuronio.sinal(self.neuronio.get_saida()))
+
+            print("{} \t{} \t{} \t\t{}".format(round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), self.saida, self.respostas[i]))
+
+        # self.plotar()
+
+    def get_classe(self, value=0):
+
+        return self.types[0] if value == 1 else self.types[1]

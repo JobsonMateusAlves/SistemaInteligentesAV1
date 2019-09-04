@@ -1,17 +1,25 @@
+import numpy as np
 
 class Neuronio:
+
+    taxaDeAprendizado = 0
 
     entradas = []
     pesos = []
     saida = 0
-    n = 0
 
-    def __init__(self, qtd_entradas, n):
+    types = []
 
-        self.entradas = []
-        self.n = n
-        # for i in range(qtd_entradas):
-        self.pesos = [-2.0, 1.0, 2.0]
+    def __init__(self, qtd_entradas, taxaDeAprendizado, types):
+
+        self.taxaDeAprendizado = taxaDeAprendizado
+        self.types = types
+
+        values = np.random.uniform(0, 1, qtd_entradas)
+
+        self.pesos = [-2, 1, 2]
+        # for v in values:
+        #     self.pesos.append(float(0))
 
     def get_saida(self, entradas=[]):
         self.entradas = entradas
@@ -19,24 +27,21 @@ class Neuronio:
         self.saida = 0
 
         for i in range(len(self.entradas)):
-            self.saida = self.saida + (self.pesos[i] * self.entradas[i])
+            # print("{} / {}".format(self.pesos[i], self.entradas[i]))
+            self.saida = self.saida + (self.pesos[i] * self.entradas[i])  # Calculo do u (u = -1 * w0 + x1 * w1 + x2 *w2...)
 
+        # print(self.saida)
         return self.saida
 
-    def ajustar_pesos(self, resposta = 0):
+    def ajustar_pesos(self, resposta=0):
+
         for i in range(len(self.pesos)):
-            # print("w = {} + {} * ({} - {}) * {}".format(self.pesos[i], self.n, resposta, self.saida, self.entradas[i]))
-            self.pesos[i] = self.pesos[i] + self.n * (resposta - self.saida) * self.entradas[i]
-
-        y = self.sinal(self.saida)
-        u = round(self.saida, 3)
-        w0 = round(self.pesos[0], 3)
-        w1 = round(self.pesos[1], 3)
-        w2 = round(self.pesos[2], 3)
-        # print("y = {} \tu = {} \tw0 = {} \tw1 = {} \tw2 = {}".format(y, u, w0, w1, w2))
-
+            d = 1 if resposta == self.types[0] else -1
+            u = self.saida
+            print("{}".format(u))
+            self.pesos[i] = self.pesos[i] + (self.taxaDeAprendizado * (d - u) * self.entradas[i])
 
     def sinal(self, value=0):
-
+        # print(value)
         return 1 if (value >= 0) else -1
 
