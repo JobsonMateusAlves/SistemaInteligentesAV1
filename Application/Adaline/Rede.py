@@ -1,5 +1,5 @@
 from Application.Adaline.Neuronio import Neuronio
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 class Rede:
@@ -20,6 +20,7 @@ class Rede:
     eqm_anterior = 1000
 
     types = []
+    acertos = 0
 
     def __init__(self, qtd_entradas, taxaDeAprendizado, precisao, types):
         self.types = types
@@ -57,7 +58,9 @@ class Rede:
 
             self.epoca += 1
             self.eqm = self.get_Eqm()
-        print(self.epoca)
+        print("Epocas = {}".format(self.epoca))
+        print("wo = {}\tw1 = {}\t w2 = {}".format(self.neuronio.pesos[0], self.neuronio.pesos[1], self.neuronio.pesos[2]))
+        self.plotar()
 
     def get_Eqm(self):
 
@@ -69,21 +72,68 @@ class Rede:
 
         return eqmAux/len(self.entradas)
 
-    def testar(self, entradas=[[]], respostas=[]):
+    def testar(self, entradas=[[]], respostas=[], plotar=True):
+
+        self.acertos = 0
 
         self.entradas = entradas
         self.respostas = respostas
 
         self.filter()
-        print("x1\tx2\ty\t\td")
+        if plotar:
+            print("x1\tx2\ty\t\td")
         for i in range(len(self.entradas)):
             self.neuronio.entradas = self.entradas[i]
-            self.saida = self.get_classe(self.neuronio.sinal(self.neuronio.get_saida()))
+            u = self.get_classe(self.neuronio.sinal(self.neuronio.get_saida(self.entradas[i])))
+            if plotar:
+                print("{} \t{} \t{} \t\t{}".format(round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), u, self.respostas[i]))
+            if u == self.respostas[i]:
+                self.acertos += 1
 
-            print("{} \t{} \t{} \t\t{}".format(round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), self.saida, self.respostas[i]))
-
-        # self.plotar()
+        if plotar:
+            self.plotar()
 
     def get_classe(self, value=0):
 
         return self.types[0] if value == 1 else self.types[1]
+
+    def get_taxa_de_acerto(self, entradas=[[]], respostas=[]):
+        self.testar(entradas, respostas, False)
+        return self.acertos/len(self.entradas)*100
+
+    #Plotando gráficos
+    def plotar(self):
+        # Gráfico
+        plt.figure()
+        for i in range(len(self.x)):
+            m = '#FF0000' if self.respostas[i] == self.types[0] else '#0000FF'
+            plt.scatter(self.x[i][0], self.x[i][1], color=m, marker='x')
+
+        plt.scatter(None, None, color='#FF0000', label=self.types[0])
+        plt.scatter(None, None, color='#0000FF', label=self.types[1])
+
+        plt.legend()
+
+        if self.normalizado:
+            plt.axis([-2, 2, -2, 2])
+        else:
+            plt.axis([0, 10, 0, 10])
+
+        plt.tight_layout()
+
+        wo = self.neuronio.pesos[0]
+        w1 = self.neuronio.pesos[1]
+        w2 = self.neuronio.pesos[2]
+
+        x1 = np.linspace(0, 10, 100)
+        if self.normalizado:
+            x1 = np.linspace(-10, 10, 100)
+
+        x2 = (-w1*x1 + wo)/w2
+
+        plt.plot(x1, x2, '-g')
+        plt.draw()
+
+
+    def show(self):
+        plt.show()

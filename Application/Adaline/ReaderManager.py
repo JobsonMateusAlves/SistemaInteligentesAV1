@@ -1,3 +1,4 @@
+import math
 
 ENTRADAS_TRAIN_FILE = './Files/xtrain.txt'
 RESPOSTAS_TRAIN_FILE = './Files/dTrain.txt'
@@ -47,3 +48,22 @@ class ReaderManager:
             except ValueError:
                 print("Erro")
         return r
+
+    @staticmethod
+    def normalizacao(ents):
+        soma = 0
+        media  = 0
+        variancia = 0
+        desv = 0
+
+        for v in ents:
+            soma += v
+        qtd_elementos = len(ents)
+        media = soma/float(qtd_elementos)
+        for valor in ents:
+            soma += math.pow((valor - media), 2)
+        variancia = soma/(float(len(ents))-1)
+
+        desv = math.sqrt(variancia)
+
+        return (media, desv)

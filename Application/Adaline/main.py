@@ -1,34 +1,78 @@
 from Application.Adaline.Rede import Rede
 from Application.Adaline.ReaderManager import ReaderManager
 
-taxaDeAprendizado = 1
+taxaDeAprendizado = 0.01
 precisao = 0.0001
 
-normalizar = False #Booleando que informa se será Normalizado ou não
+normalizar = True #Booleando que informa se será Normalizado ou não
 
-x = [] #Entradas sem o -1 do limiar (utilizado para plotar o gráfico
-entradas = [] #Entradas com o -1 do limiar
-respostas = [] #Saídas esperadas (d)
+def normalizar_x1():
+    ents = []
+    for entTrain in entradasTrain:
+        ents.append(entTrain[0])
+    for entTest in entradasTest:
+        ents.append(entTest[0])
+    norm = ReaderManager.normalizacao(ents)
+    media = norm[0]
+    desv = norm[1]
+    for i in range(len(entradasTrain)):
+        entradasTrain[i][0] = (entradasTrain[i][0] - media) / desv
+        xTrain[i][0] = (xTrain[i][0] - media) / desv
+    for i in range(len(entradasTest)):
+        entradasTest[i][0] = (entradasTest[i][0] - media) / desv
+        xTest[i][0] = (xTest[i][0] - media) / desv
 
+def normalizar_x2():
+    ents = []
+    for entTrain in entradasTrain:
+        ents.append(entTrain[1])
+    for entTest in entradasTest:
+        ents.append(entTest[1])
+    norm = ReaderManager.normalizacao(ents)
+    media = norm[0]
+    desv = norm[1]
+    for i in range(len(entradasTrain)):
+        entradasTrain[i][1] = (entradasTrain[i][1] - media) / desv
+        xTrain[i][1] = (xTrain[i][1] - media) / desv
+    for i in range(len(entradasTest)):
+        entradasTest[i][1] = (entradasTest[i][1] - media) / desv
+        xTest[i][1] = (xTest[i][1] - media) / desv
 
-# ----------------------------------- Treinamento ------------------------------------------
-x = ReaderManager.get_entradas(True)
-entradas = ReaderManager.get_entradas(True)
-respostas = ReaderManager.get_respostas(True)
+# ----------------------------------- Leituras ------------------------------------------
+xTrain = ReaderManager.get_entradas(True)
+entradasTrain = ReaderManager.get_entradas(True)
+respostasTrain = ReaderManager.get_respostas(True)
 
-x = [[0.5, 1.5], [-0.5, 0.5], [0.5, 0.5], [0.5, -0.3], [1.5, 1.5]]
-entradas = [[0.5, 1.5], [-0.5, 0.5], [0.5, 0.5], [0.5, -0.3], [1.5, 1.5]]
-respostas = [1, -1, 1, -1, 1]
+xTest = ReaderManager.get_entradas(False)
+entradasTest = ReaderManager.get_entradas(False)
+respostasTest = ReaderManager.get_respostas(False)
 
-if normalizar: #Normalizando entradas para o treinamento
-    #TODO: NORMAlIZACAO
-    print("TODO")
+# entradasTrain = [[1000,0], [3000,0], [1500,0], [3000,0], [4000,0]]
+# entradasTest = []
+#
+# x = [[1, 1], [0, 0], [0, 1], [1, 0]]
+# entradas = [[1, 1], [0, 0], [0, 1], [1, 0]]
+# respostas = [1, -1, -1, -1]
+# print(entradasTrain)
+if normalizar:
+    normalizar_x1()
+    normalizar_x2()
+# print(entradasTrain)
 
-for entrada in entradas: #Inserindo o -1 do limiar
+for entrada in entradasTrain:
+    entrada.insert(0, -1)
+for entrada in entradasTest:
     entrada.insert(0, -1)
 
-rede = Rede(len(entradas[0]), taxaDeAprendizado, precisao, [1, -1])  # Criando a rede
-rede.x = x  # Setando o x (Utilizado para plotar os gráficos)
-rede.normalizado = normalizar  # Informando para a rede se os dados são normalizados ou não(Utilizado para alterar os limites dos gráficos)
-rede.treinar(entradas, respostas)
-rede.testar(entradas, respostas)
+# # ----------------------------------- Treinamento ------------------------------------------
+rede = Rede(len(entradasTrain[0]), taxaDeAprendizado, precisao, [1, 2])
+rede.x = xTrain
+rede.normalizado = normalizar
+rede.treinar(entradasTrain, respostasTrain)
+print("Taxa de acertos Treino: {}".format(rede.get_taxa_de_acerto(entradasTrain, respostasTrain)))
+
+# # ----------------------------------- Teste ------------------------------------------
+rede.x = xTest
+rede.testar(entradasTest, respostasTest)
+print("Taxa de acertos Teste: {}".format(rede.get_taxa_de_acerto(entradasTest, respostasTest)))
+rede.show()
