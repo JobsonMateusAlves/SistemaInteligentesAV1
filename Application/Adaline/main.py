@@ -1,7 +1,7 @@
 from Application.Adaline.Rede import Rede
 from Application.Adaline.ReaderManager import ReaderManager
 
-taxaDeAprendizado = 0.01
+taxaDeAprendizado = 1
 precisao = 0.0001
 
 normalizar = True #Booleando que informa se será Normalizado ou não
@@ -38,13 +38,45 @@ def normalizar_x2():
         entradasTest[i][1] = (entradasTest[i][1] - media) / desv
         xTest[i][1] = (xTest[i][1] - media) / desv
 
+def normalizar_x3():
+    ents = []
+    for entTrain in entradasTrain:
+        ents.append(entTrain[2])
+    for entTest in entradasTest:
+        ents.append(entTest[2])
+    norm = ReaderManager.normalizacao(ents)
+    media = norm[0]
+    desv = norm[1]
+    for i in range(len(entradasTrain)):
+        entradasTrain[i][2] = (entradasTrain[i][2] - media) / desv
+        xTrain[i][2] = (xTrain[i][2] - media) / desv
+    for i in range(len(entradasTest)):
+        entradasTest[i][2] = (entradasTest[i][2] - media) / desv
+        xTest[i][2] = (xTest[i][2] - media) / desv
+
+def normalizar_x4():
+    ents = []
+    for entTrain in entradasTrain:
+        ents.append(entTrain[3])
+    for entTest in entradasTest:
+        ents.append(entTest[3])
+    norm = ReaderManager.normalizacao(ents)
+    media = norm[0]
+    desv = norm[1]
+    for i in range(len(entradasTrain)):
+        entradasTrain[i][3] = (entradasTrain[i][3] - media) / desv
+        xTrain[i][3] = (xTrain[i][3] - media) / desv
+    for i in range(len(entradasTest)):
+        entradasTest[i][3] = (entradasTest[i][3] - media) / desv
+        xTest[i][3] = (xTest[i][3] - media) / desv
+
 # ----------------------------------- Leituras ------------------------------------------
-xTrain = ReaderManager.get_entradas(True)
-entradasTrain = ReaderManager.get_entradas(True)
+xTrain = ReaderManager.new_get_entradas(True)
+entradasTrain = ReaderManager.new_get_entradas(True)
 respostasTrain = ReaderManager.get_respostas(True)
 
-xTest = ReaderManager.get_entradas(False)
-entradasTest = ReaderManager.get_entradas(False)
+xTest = ReaderManager.new_get_entradas(False)
+entradasTest = ReaderManager.new_get_entradas(False)
 respostasTest = ReaderManager.get_respostas(False)
 
 # entradasTrain = [[1000,0], [3000,0], [1500,0], [3000,0], [4000,0]]
@@ -57,6 +89,11 @@ respostasTest = ReaderManager.get_respostas(False)
 if normalizar:
     normalizar_x1()
     normalizar_x2()
+    if len(entradasTrain[0]) > 2:
+        normalizar_x3()
+        normalizar_x4()
+
+
 # print(entradasTrain)
 
 for entrada in entradasTrain:
@@ -65,7 +102,7 @@ for entrada in entradasTest:
     entrada.insert(0, -1)
 
 # # ----------------------------------- Treinamento ------------------------------------------
-rede = Rede(len(entradasTrain[0]), taxaDeAprendizado, precisao, [1, 2])
+rede = Rede(len(entradasTrain[0]), taxaDeAprendizado, precisao, [1, 2], True)
 rede.x = xTrain
 rede.normalizado = normalizar
 rede.treinar(entradasTrain, respostasTrain)

@@ -8,6 +8,7 @@ class Neuronio:
     pesos = []
     saida = 0
 
+
     types = []
 
     def __init__(self, qtd_entradas, taxaDeAprendizado, types):
@@ -20,8 +21,8 @@ class Neuronio:
         # self.pesos = [-2, 1, 2]
         for v in values:
             self.pesos.append(float(v))
+        # print("wo = {}\tw1 = {}\t w2 = {}\t w3 = {}\t w4 = {}".format(self.pesos[0], self.pesos[1], self.pesos[2], self.pesos[3], self.pesos[4]))
         print("wo = {}\tw1 = {}\t w2 = {}".format(self.pesos[0], self.pesos[1], self.pesos[2]))
-
     def get_saida(self, entradas=[]):
         self.entradas = entradas
 
@@ -38,6 +39,12 @@ class Neuronio:
             d = 1 if resposta == self.types[0] else -1
             u = self.saida
             self.pesos[i] = self.pesos[i] + (self.taxaDeAprendizado * (d - u) * self.entradas[i])
+
+    def ajustar_pesos_offline(self, resposta=0, u=0, p=0):
+
+        for i in range(len(self.pesos)):
+            d = 1 if resposta == self.types[0] else -1
+            self.pesos[i] = self.pesos[i] + (self.taxaDeAprendizado/p * (d - u) * self.entradas[i])
 
     def sinal(self, value=0):
         return 1 if (value >= 0) else -1

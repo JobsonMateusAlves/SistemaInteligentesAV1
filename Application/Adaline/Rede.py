@@ -4,6 +4,7 @@ import numpy as np
 
 class Rede:
     normalizado = False
+    online = True
 
     taxaDeAprendizado = 1
     precisao = 0
@@ -22,7 +23,10 @@ class Rede:
     types = []
     acertos = 0
 
-    def __init__(self, qtd_entradas, taxaDeAprendizado, precisao, types):
+    u_array = []
+
+    def __init__(self, qtd_entradas, taxaDeAprendizado, precisao, types, online=True):
+        self.online = online
         self.types = types
         self.taxaDeAprendizado = taxaDeAprendizado
         self.precisao = precisao
@@ -44,30 +48,57 @@ class Rede:
 
         self.entradas = entradas
         self.respostas = respostas
+
         self.filter()
+        if self.online:
+            while abs(self.eqm - self.eqm_anterior) > self.precisao and self.epoca < 1000:
 
-        while abs(self.eqm - self.eqm_anterior) > self.precisao and self.epoca < 1000:
+                self.u_array = []
+                self.eqm_anterior = self.eqm
 
-            self.eqm_anterior = self.eqm
+                for i in range(len(self.entradas)):
+                    self.saida = self.neuronio.get_saida(self.entradas[i])
 
-            for i in range(len(self.entradas)):
-                self.saida = self.neuronio.get_saida(self.entradas[i])
+                    self.u_array.append(self.saida)
 
-                if self.get_classe(self.neuronio.sinal(self.saida)) != self.respostas[i]:
+                    # if self.get_classe(self.neuronio.sinal(self.saida)) != self.respostas[i]:
                     self.neuronio.ajustar_pesos(self.respostas[i])
 
-            self.epoca += 1
-            self.eqm = self.get_Eqm()
-        print("Epocas = {}".format(self.epoca))
-        print("wo = {}\tw1 = {}\t w2 = {}".format(self.neuronio.pesos[0], self.neuronio.pesos[1], self.neuronio.pesos[2]))
-        self.plotar()
+                self.epoca += 1
+                self.eqm = self.get_Eqm()
+            print("Epocas = {}".format(self.epoca))
+            # print("wo = {}\tw1 = {}\t w2 = {}\t w3 = {}\t w4 = {}".format(self.neuronio.pesos[0], self.neuronio.pesos[1], self.neuronio.pesos[2], self.neuronio.pesos[3], self.neuronio.pesos[2]))
+            print("wo = {}\tw1 = {}\t w2 = {}\t".format(self.neuronio.pesos[0], self.neuronio.pesos[1], self.neuronio.pesos[2]))
+        else:
+            while abs(self.eqm - self.eqm_anterior) > self.precisao and self.epoca < 1000:
 
+                self.u_array = []
+                self.eqm_anterior = self.eqm
+
+                for i in range(len(self.entradas)):
+                    self.saida = self.neuronio.get_saida(self.entradas[i])
+
+                    self.u_array.append(self.saida)
+
+                self.ajustar_pesos_offline()
+
+                self.epoca += 1
+                self.eqm = self.get_Eqm()
+            print("Epocas = {}".format(self.epoca))
+            # print("wo = {}\tw1 = {}\t w2 = {}\t w3 = {}\t w4 = {}".format(self.neuronio.pesos[0], self.neuronio.pesos[1], self.neuronio.pesos[2], self.neuronio.pesos[3], self.neuronio.pesos[2]))
+            print("wo = {}\tw1 = {}\t w2 = {}\t".format(self.neuronio.pesos[0], self.neuronio.pesos[1], self.neuronio.pesos[2]))
+        if len(self.entradas[0]) == 3:
+            self.plotar()
+
+    def ajustar_pesos_offline(self):
+        for i in range(len(self.u_array)):
+            self.neuronio.ajustar_pesos_offline(self.respostas[i], self.u_array[i], len(self.entradas))
     def get_Eqm(self):
 
         eqmAux = 0
 
-        for i in range(len(self.entradas)):
-            u = self.neuronio.get_saida(self.entradas[i])
+        for i in range(len(self.u_array)):
+            u = self.u_array[i]
             eqmAux += ((self.respostas[i] - u)*(self.respostas[i] - u))
 
         return eqmAux/len(self.entradas)
@@ -82,15 +113,16 @@ class Rede:
         self.filter()
         if plotar:
             print("x1\tx2\ty\t\td")
+            # print("x1\tx2\tx3\tx4\ty\t\td")
         for i in range(len(self.entradas)):
             self.neuronio.entradas = self.entradas[i]
             u = self.get_classe(self.neuronio.sinal(self.neuronio.get_saida(self.entradas[i])))
             if plotar:
-                print("{} \t{} \t{} \t\t{}".format(round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), u, self.respostas[i]))
+                print("{} \t{} \t{} \t{}".format(round(self.entradas[i][1], 3), round(self.entradas[i][2], 3), u, self.respostas[i]))
             if u == self.respostas[i]:
                 self.acertos += 1
 
-        if plotar:
+        if plotar and len(self.entradas[0]) == 3:
             self.plotar()
 
     def get_classe(self, value=0):

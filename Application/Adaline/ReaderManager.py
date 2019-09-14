@@ -6,6 +6,12 @@ RESPOSTAS_TRAIN_FILE = './Files/dTrain.txt'
 ENTRADAS_TEST_FILE = './Files/xTest.txt'
 RESPOSTAS_TEST_FILE = './Files/dTest.txt'
 
+# ENTRADAS_TRAIN_FILE = './Files/xtrain2.txt'
+# RESPOSTAS_TRAIN_FILE = './Files/dTrain2.txt'
+#
+# ENTRADAS_TEST_FILE = './Files/xTest2.txt'
+# RESPOSTAS_TEST_FILE = './Files/dTest2.txt'
+
 class ReaderManager:
 
     @staticmethod
@@ -26,12 +32,30 @@ class ReaderManager:
                 count += 1
             ent[i].append(float(lines[i][:count]))
 
+
+
             count = 0
             for l in reversed(lines[i]):
                 if l == '\t':
                     break
                 count += 1
             ent[i].append(float(lines[i][-count:]))
+        return ent
+
+    @staticmethod
+    def new_get_entradas(train):
+        file = ENTRADAS_TRAIN_FILE if train else ENTRADAS_TEST_FILE
+        ent = []
+        with open(file) as f:
+            conteudo = f.readlines()
+        lines = [line.strip() for line in conteudo]
+
+        for i in range(len(lines)):
+            ent.append([])
+            vetor = lines[i].split()
+            for pos in vetor:
+                ent[i].append(float(pos))
+
         return ent
 
     @staticmethod
