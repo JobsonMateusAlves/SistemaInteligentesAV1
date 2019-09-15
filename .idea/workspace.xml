@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="634971ef-850d-4f02-83d1-91da1cef18ad" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Application/PMC/Neuronio.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/PMC/ReaderManager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/PMC/Rede.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Application/PMC/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Adaline/Neuronio.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Adaline/Neuronio.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Adaline/ReaderManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Adaline/ReaderManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Adaline/Rede.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Adaline/Rede.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/Adaline/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/Adaline/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -30,9 +30,12 @@
   <component name="ProjectId" id="1PskYSM2PWLnsUz7nVozK2eJIMq" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Application/PMC" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Application/PMC" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Application/Adaline/Files" />
     </key>
@@ -49,7 +52,28 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main (1)">
+  <component name="RunManager" selected="Python.main (2)">
+    <configuration name="Rede" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SistemasInteligentesAV1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Application/PMC" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Application/PMC/Rede.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="SistemasInteligentesAV1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -63,6 +87,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Application/Adaline/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="main (2)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="SistemasInteligentesAV1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Application/PMC" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Application/PMC/main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -94,6 +139,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.main (2)" />
+        <item itemvalue="Python.Rede" />
         <item itemvalue="Python.main (1)" />
         <item itemvalue="Python.main" />
       </list>
