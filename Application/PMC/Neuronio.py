@@ -4,23 +4,27 @@ import math
 
 class Neuronio:
 
+    id = 0
     taxa_de_aprendizado = 0
     pesos = []
     w0 = 0
 
     last_saida = 0
 
-    def __init__(self, qtd_entradas, taxa_de_aprendizado):
+    def __init__(self, qtd_entradas, taxa_de_aprendizado, id):
 
+        self.pesos = []
+
+        self.id = id
         self.taxa_de_aprendizado = taxa_de_aprendizado
 
         self.__set_pesos(qtd_entradas)
 
     def __set_pesos(self, qtd_entradas):
-        value = np.random.uniform(0, 1, 1)
+        value = np.random.uniform(-0.5, 0.5, 1)
         self.w0 = float(value)
 
-        values = np.random.uniform(0, 1, qtd_entradas)
+        values = np.random.uniform(-0.5, 0.5, qtd_entradas)
         for v in values:
             self.pesos.append(float(v))
 
@@ -33,7 +37,8 @@ class Neuronio:
         saida += -1 * self.w0
 
         self.last_saida = self.__sigmoid(saida)
-        return self.last_saida
+        return self.__sinal(self.last_saida)
+        # return self.last_saida
 
     def ajustar(self, erro, entradas):
 
@@ -45,3 +50,7 @@ class Neuronio:
     def __sigmoid(self, x):
 
         return 1/(1 + math.exp(-x))
+
+    def __sinal(self, value):
+
+        return 1.0 if value >= 0 else -1.0

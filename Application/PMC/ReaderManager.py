@@ -2,7 +2,12 @@ import math
 
 ENTRADAS = './Files/Xlarge.txt'
 
-RESPOSTAS= './Files/Xsmall.txt'
+RESPOSTAS = './Files/Xsmall.txt'
+
+TESTE_2 = './Files/Xnoise2.txt'
+TESTE_5 = './Files/Xnoise5.txt'
+TESTE_10 = './Files/Xnoise10.txt'
+
 
 class ReaderManager:
 
@@ -20,8 +25,6 @@ class ReaderManager:
             for pos in vetor:
                 entradas[i].append(float(pos))
 
-        for entrada in entradas:
-            print(entrada)
         return entradas
 
     @staticmethod
@@ -38,9 +41,29 @@ class ReaderManager:
             for pos in vetor:
                 respostas[i].append(float(pos))
 
-        for entrada in respostas:
-            print(entrada)
         return respostas
+
+    @staticmethod
+    def get_entradas_teste(num):
+        if num == 2:
+            file = TESTE_2
+        elif num == 5:
+            file = TESTE_5
+        else:
+            file = TESTE_10
+
+        entradas = []
+        with open(file) as f:
+            conteudo = f.readlines()
+        lines = [line.strip() for line in conteudo]
+
+        for i in range(len(lines)):
+            entradas.append([])
+            vetor = lines[i].split()
+            for pos in vetor:
+                entradas[i].append(float(pos))
+
+        return entradas
 
     @staticmethod
     def normalizacao(ents):
@@ -60,3 +83,4 @@ class ReaderManager:
         desv = math.sqrt(variancia)
 
         return (media, desv)
+
