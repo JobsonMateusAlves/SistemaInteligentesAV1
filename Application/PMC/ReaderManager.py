@@ -1,5 +1,9 @@
 import math
 
+XOR_X = './Files/Xor.txt'
+
+XOR_D = './Files/XorD.txt'
+
 ENTRADAS = './Files/Xlarge.txt'
 
 RESPOSTAS = './Files/Xsmall.txt'
@@ -64,6 +68,38 @@ class ReaderManager:
                 entradas[i].append(float(pos))
 
         return entradas
+
+    @staticmethod
+    def get_entradas_xor():
+        file = XOR_X
+        entradas = []
+        with open(file) as f:
+            conteudo = f.readlines()
+        lines = [line.strip() for line in conteudo]
+
+        for i in range(len(lines)):
+            entradas.append([])
+            vetor = lines[i].split()
+            for pos in vetor:
+                entradas[i].append(float(pos))
+
+        return entradas
+
+    @staticmethod
+    def get_respostas_xor():
+        file = XOR_D
+        respostas = []
+        with open(file) as f:
+            conteudo = f.readlines()
+        lines = [line.strip() for line in conteudo]
+
+        for i in range(len(lines)):
+            respostas.append([])
+            vetor = lines[i].split()
+            for pos in vetor:
+                respostas[i].append(float(pos))
+
+        return respostas
 
     @staticmethod
     def normalizacao(ents):

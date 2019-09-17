@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="634971ef-850d-4f02-83d1-91da1cef18ad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Application/PMC/Files/Xnoise10.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/PMC/Files/Xnoise2.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Application/PMC/Files/Xnoise5.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Application/PMC/Files/result1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Application/PMC/Files/result1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/PMC/Neuronio.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/PMC/Neuronio.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/PMC/ReaderManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/PMC/ReaderManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Application/PMC/Rede.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/PMC/Rede.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Application/PMC/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Application/PMC/main.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -177,6 +174,65 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/main.py</url>
+          <line>22</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>61</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>65</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>157</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>187</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>156</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>190</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>159</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>195</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>205</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Application/PMC/Rede.py</url>
+          <line>180</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="self.saida" language="Python" />

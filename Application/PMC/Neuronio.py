@@ -36,9 +36,10 @@ class Neuronio:
             saida += entrada * self.pesos[index]
         saida += -1 * self.w0
 
-        self.last_saida = self.__sigmoid(saida)
-        return self.__sinal(self.last_saida)
-        # return self.last_saida
+        # self.last_saida = self.__sigmoid(saida)
+        self.last_saida = self.__sinal(saida)
+
+        return self.last_saida
 
     def ajustar(self, erro, entradas):
 
